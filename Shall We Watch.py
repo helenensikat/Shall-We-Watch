@@ -4,6 +4,7 @@
 
 # 'Shall We Watch' tells Helen (H) and Keith (K) what film they should watch from a list of 12, evenly weighted between films Helen thinks Keith should see, films Keith thinks Helen should see, and films neither have seen yet.
 #  Reference setup in https://www.makeuseof.com/tag/read-write-google-sheets-python/ to make friends with Google Sheets
+#  Recommend limiting the editable range of cells for secondary users of the spreadsheet.
 
 # IMPORTANT VARIABLES
 
@@ -22,6 +23,13 @@ from sys import stdout as terminal
 from time import sleep
 from itertools import cycle
 from threading import Thread
+
+# ENCODING FIX (Test)
+
+import sys
+import codecs
+sys.stdout = codecs.getwriter('utf8')(sys.stdout)
+sys.stderr = codecs.getwriter('utf8')(sys.stderr)
 
 # LOGIC
 
