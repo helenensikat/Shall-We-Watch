@@ -5,12 +5,12 @@
 # 'Shall We Watch' tells Helen (H) and Keith (K) what film they should watch from a list of 12, evenly weighted between films Helen thinks Keith should see, films Keith thinks Helen should see, and films neither have seen yet.
 #  Reference setup in https://www.makeuseof.com/tag/read-write-google-sheets-python/ to make friends with Google Sheets
 
-# VARIABLES
+# IMPORTANT VARIABLES
 
 # check_cell (positive integer; 1 = sufficient films to run; 0 = insufficient films to run)
 # chosen_film (string indicating randomly selected film)
 # chosen_film_cell (cell reference for film watched)
-# choice (1 or 2 - user entered choice to watch a film or exit) 
+# choice (1 or 2 - user entered choice to watch a film or exit)
 
 # LIBRARIES
 
@@ -67,19 +67,24 @@ if (check_cell == '0'):
 
 # Return a film to watch
 
-chosen_film = sheet.cell(2, 8).value # Retrieves selected film from H2
+chosen_film = sheet.cell(7, 7).value # Retrieves selected film from G7
 print("Shall we watch " + chosen_film + "?")
 
 # Prompt user to choose 1 (Watch chosen_film and remove from list) or 2 (Exit without change) and clean up accordingly
 
 choice = int(input("Enter 1 to watch this film and remove it from the list, or 2 to exit without watching:  "))
 
+# Clear selected film from the list in which it appears and confirm before exiting
+
 if (choice == 1):
     print("Happy watching!")
-    chosen_film_cell = sheet.find(chosen_film)
-    print(chosen_film_cell)
-    # Insert code to clear value in chosen film cell
+    chosen_film_cell = sheet.acell('G8').value
+    sheet.update(chosen_film_cell, '', raw=False)
+    print("Cell " + chosen_film_cell + " cleared.")
     quit()
+
+# Exit without modifying the film lists
+
 elif (choice == 2):
     print("Understandable, have a nice day.")
     quit()
